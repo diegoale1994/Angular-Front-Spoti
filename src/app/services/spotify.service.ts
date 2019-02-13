@@ -2,24 +2,24 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Papa } from 'ngx-papaparse';
 import { map } from 'rxjs/operators';
-
+import { URI } from "./../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpotifyService {
   tiempo:any[] = [];
+  codigoAutoizacion:string="";
   constructor(private http: HttpClient, private papa: Papa) { 
+
   }
 
   getQuery(uri:string){
-      const URL = `https://api.spotify.com/v1/${uri}`;
-
       const HEADERS = new HttpHeaders({
-        'Authorization': 'Bearer BQCS4RS0a-diBbMcNIsy3_tZ9xTogarHCTwLHv1OY50wCEdjOmpSPxpV9vPFUDF5O3L5uz08A0zOo9yW04k'
+        'Authorization': 'Bearer BQCn1bS57g3AhWmwH--QOENCkgmY5mkj52_swit5rAJ7yLFjX0Zp9j8RrMbv3R-MhXULKrjNm-xf-anZLHE'
     });
 
-      return this.http.get(URL,{headers: HEADERS})
+      return this.http.get(URI+`${uri}`,{headers: HEADERS})
   }
 
   getNewReleases(){
@@ -34,7 +34,7 @@ export class SpotifyService {
 
   getArtista(terminoBusqueda:string){
 
-  return this.getQuery(`search?query=${terminoBusqueda}&type=artist&market=CO&offset=1&limit=5`)
+  return this.getQuery(`search?query=${terminoBusqueda}&type=artist&offset=1&limit=5`)
   .pipe( map(response =>{
       return response['artists'].items;
   }) )
