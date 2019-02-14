@@ -14,10 +14,13 @@ loading:boolean;
    }
 
     buscar(termino:string){
-      this.loading=true;
-        this.spotifyService.getArtista( termino ).subscribe((response:any) =>{
+      if (termino != ""){
+        this.loading=true;
+        this.spotifyService.getArtistas( termino ).subscribe((response:any) =>{
             this.artistas = response;
             this.loading=false;
         })
+      }
+      
     }
 }
