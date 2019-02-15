@@ -10,14 +10,34 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 export class HomeComponent implements OnInit {
   newSongs:any[] = [];
   loading:boolean;
+  token:boolean;
   constructor(private spotifyService: SpotifyService) {
-    this.loading=true;
-      this.spotifyService.getNewReleases()
-      .subscribe((response:any) => {
-        this.newSongs = response;
-        
-        this.loading = false;
+    console.log(this.spotifyService.getAlreadyToken());
+ 
+    if(this.spotifyService.getAlreadyToken()=== undefined){
+      this.spotifyService.getToken().subscribe((response:any) =>{
+        this.spotifyService.setToken(response.access_token);
+        this.spotifyService.getNewReleases()
+        .subscribe((response:any) => {
+          this.newSongs = response;
+          this.loading = false;
+        },(error)=>{
+          if (error.error.error.message=="Invalid access token"){
+            this.spotifyService.getToken().subscribe((response:any) => {
+              this.spotifyService.setToken(response.access_token);
+            })
+  
+          }
+        })
       })
+
+    }else{
+      this.spotifyService.getNewReleases()
+        .subscribe((response:any) => {
+          this.newSongs = response;
+          this.loading = false;
+        })
+    }
    }
 
   ngOnInit() {

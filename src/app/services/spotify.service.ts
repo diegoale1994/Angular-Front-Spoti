@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Papa } from 'ngx-papaparse';
 import { map } from 'rxjs/operators';
-import { URI } from "./../../environments/environment";
+import { constantes } from "./../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +10,37 @@ import { URI } from "./../../environments/environment";
 export class SpotifyService {
   tiempo:any[] = [];
   codigoAutoizacion:string="";
+  token:any;
+  tokenState:boolean;
+  //let httpHeaders = new HttpHeaders({'Content-Type','application/x-www-form-urlencoded'});
+  
   constructor(private http: HttpClient, private papa: Papa) { 
+  this.http.get('https://spotify-get-token.herokuapp.com/spotify/4474bdb003324ef791e9c71684585196/b2db5018e1f9443e8630c8972a78fba5')
+  .subscribe((response:any) => {
+    this.token = response.access_token;
+  })
+  
 
+
+
+  }
+
+  getToken (){
+   return this.http.get('https://spotify-get-token.herokuapp.com/spotify/4474bdb003324ef791e9c71684585196/b2db5018e1f9443e8630c8972a78fba5');   
+  }
+  setToken(token:any){
+this.token = token;
+  }
+  getAlreadyToken (){
+    return this.token;
   }
 
   getQuery(uri:string){
       const HEADERS = new HttpHeaders({
-        'Authorization': 'Bearer BQDu7o6cO9cjbtJULZFW85MFJvK0XuyzhPZURC-5PtRGo96yQ-C9CeX-HZ-RbANghAL_hHHq2wnElQbLzBY'
+        'Authorization': `Bearer ${this.token}`
     });
 
-      return this.http.get(URI+`${uri}`,{headers: HEADERS})
+      return this.http.get(constantes.URI+`${uri}`,{headers: HEADERS})
   }
 
   getNewReleases(){
