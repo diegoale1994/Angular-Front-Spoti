@@ -14,8 +14,9 @@ import { NoimagePipe } from './pipes/noimage.pipe';
 import { DomseguroPipe } from './pipes/domseguro.pipe';
 import { TarjetasComponent } from './components/tarjetas/tarjetas.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
+import { FooterComponent } from './components/footer/footer.component';
 
-
+import { SlicePipe } from '@angular/common';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
     NoimagePipe,
     DomseguroPipe,
     TarjetasComponent,
-    LoadingComponent
+    LoadingComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,7 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
     HttpClientModule,
     RouterModule.forRoot( routes, { useHash: true } )
   ],
-  providers: [],
+  providers: [SlicePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

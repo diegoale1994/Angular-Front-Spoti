@@ -12,8 +12,7 @@ export class HomeComponent implements OnInit {
   loading:boolean;
   token:boolean;
   constructor(private spotifyService: SpotifyService) {
-    console.log(this.spotifyService.getAlreadyToken());
- 
+    this.loading = true;
     if(this.spotifyService.getAlreadyToken()=== undefined){
       this.spotifyService.getToken().subscribe((response:any) =>{
         this.spotifyService.setToken(response.access_token);

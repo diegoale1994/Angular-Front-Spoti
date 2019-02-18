@@ -21,7 +21,9 @@
 
 <div class="row m-5">
 
-  <div class="col">
+  <div class="col-md-8">
+    <h5 class="display-4 text-center">Mejores Canciones</h5>
+    <br>
     <table class="table text-white">
       <thead>
         <tr>
@@ -46,5 +48,8 @@
       </tbody>
     </table>
   </div>
-
+  <div class="col-md-4">
+      <h5 class="display-4 text-center">Relacionados</h5>
+      <app-tarjetas [items]="relacionadosArtistas"></app-tarjetas>
+  </div>
 </div>

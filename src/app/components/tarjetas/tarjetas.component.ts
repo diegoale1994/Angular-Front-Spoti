@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-tarjetas',
@@ -9,7 +8,9 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
 })
 export class TarjetasComponent {
 @Input() items: any[] = [];
-  constructor(private router:Router) { }
+@Input() diseno: boolean;
+  constructor(private router:Router) {
+   }
 
   verArtista(item:any){
     let artistaId;
